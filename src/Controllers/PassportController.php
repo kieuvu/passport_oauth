@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Kieuvu\PassportOauth\Controllers;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
-use App\Http\Requests\Auth\LoginRequest;
-use App\Http\Requests\Auth\RegisterRequest;
 use Laravel\Passport\Client as OClient;
 use GuzzleHttp\Client;
-
+use Kieuvu\PassportOauth\Requests\LoginRequest;
+use Kieuvu\PassportOauth\Requests\RegisterRequest;
 
 class PassportController extends Controller
 {
