@@ -1,0 +1,23 @@
+{
+    "name": "kieuvu/passport_oauth",
+    "description": "Authorization & Authentication System With Passport OAuth",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Kieuvu\\PassportOauth\\": "src/",
+            "App\\": "app/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Kieu Minh Vu",
+            "email": "kieuvuvuvu@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "laravel/passport": "^10.4",
+        "guzzlehttp/guzzle": "^7.2"
+    }
+}
