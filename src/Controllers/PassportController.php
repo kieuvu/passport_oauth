@@ -27,11 +27,13 @@ class PassportController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
-            'department' => $request->department
         ]);
 
         return response()->json([
             'status' => true,
+            'details' => [
+                'user' => $user
+            ]
         ], 200);
     }
 
@@ -51,10 +53,20 @@ class PassportController extends Controller
         if (Auth::attempt($credentials)) {
             $oClient = OClient::where('password_client', 1)->first();
             $result =  $this->getTokenAndRefreshToken($oClient, $request->email, $request->password);
-            return response()->json($result, 200);
+            return response()->json([
+                'status' => true,
+                'details' => [
+                    'credentials' => $result
+                ]
+            ], 200);
         }
         return response()->json([
             'status' => false,
+            'details' => [
+                "credentials" => [
+                    "Wrong username or password."
+                ]
+            ],
         ], 401);
     }
 
@@ -66,12 +78,10 @@ class PassportController extends Controller
     public function logout(Request $request)
     {
         $tokenId = $request->user()->token()->id;
-
         $tokenRepository = app('Laravel\Passport\TokenRepository');
         $refreshTokenRepository = app('Laravel\Passport\RefreshTokenRepository');
         $tokenRepository->revokeAccessToken($tokenId);
         $refreshTokenRepository->revokeRefreshTokensByAccessTokenId($tokenId);
-
         $request->session()->flush();
     }
 
